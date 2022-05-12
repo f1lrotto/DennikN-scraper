@@ -1,8 +1,16 @@
 import requests
 import json
 from bs4 import BeautifulSoup
+from datetime import datetime
 
-URL = 'https://dennikn.sk/minuta/'
+URL = 'https://dennikn.sk/minuta/dolezite'
+
+def getDate(link_to_post):
+    page = requests.get(link_to_post)
+    soup = BeautifulSoup(page.content, "html.parser")
+    time = soup.find('time')
+    return time['datetime']
+
 
 def get_data():
     page = requests.get(URL)
@@ -11,20 +19,32 @@ def get_data():
 
     posts = soup.find_all("div", class_="mnt-Post-hash", limit=40)
 
-    post_dict = {}
-
+    post_list = []
+    post_times = []
     for post in posts:
         post_child = post.find(
             "div", class_='mnt-FeedArticle js-hook-feed-article')
-        post_grandchild = post_child.find("div", class_='mnt-toolbar')
-        
-        link_to_post = post_grandchild.find(href=True)
+        mnt_toolbar = post_child.find("div", class_='mnt-toolbar')
+
+        link_to_post = mnt_toolbar.find(href=True)
+
         link_to_post = link_to_post['href']
-        
+
+        mnt_article = post_child.find("div", class_='mnt-article')
+
+        if mnt_article.find('a') != None:
+            title = mnt_article.find('a')
+            title = title.text
+        else:
+            title = mnt_article.find('p')
+            title = title.find('strong')
+            title = title.text
+        post_time = getDate(link_to_post)
         post_id = post.get('id')
-        dict_entry_name = 'post-'+post_id
-        
-        post_dict[dict_entry_name] = {'postID': post_id, 'postLink': link_to_post}
-        
-    json_posts = json.dumps(post_dict)
+
+        post_list.append({
+            'postID': post_id, 'postTime': post_time, 'postLink': link_to_post, 'headline': title
+        })
+
+    json_posts = json.dumps(post_list)
     return json_posts
