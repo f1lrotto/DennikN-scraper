@@ -3,7 +3,7 @@ import json
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-URL = 'https://dennikn.sk/minuta/'
+URL = 'https://dennikn.sk/minuta'
 
 def getDate(link_to_post):
     page = requests.get(link_to_post)
@@ -17,7 +17,7 @@ def get_data():
 
     soup = BeautifulSoup(page.content, "html.parser")
 
-    posts = soup.find_all("div", class_="mnt-Post-hash", limit=30)
+    posts = soup.find_all("div", class_="mnt-Post-hash", limit=35)
 
     post_list = []
     post_times = []
