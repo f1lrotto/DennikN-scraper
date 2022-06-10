@@ -1,6 +1,6 @@
 # DennikN-scraper
 ## Introduction
-This is a microservice created to be used alongside with [discord news alert](https://github.com/f1lrotto/news-from-dennik-n-discord-alert), to get the latest news from the news website DennikN, served to a discord server chat. 
+This is a microservice created to be used alongside with [Discord-News](https://github.com/f1lrotto/news-from-dennik-n-discord-alert), to get the latest news from the news website DennikN, served to a discord server chat. 
 
 ## Functionality
 The server is listening on [http://localhost:3000/posts](http://localhost:3000/posts) for incoming `GET` requests.
