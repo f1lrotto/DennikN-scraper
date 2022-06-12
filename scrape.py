@@ -37,8 +37,9 @@ def get_data():
             title = title.text
         else:
             title = mnt_article.find('p')
-            title = title.find('strong')
-            title = title.text
+            if title.find('strong') != None:
+                title = title.find('strong')
+                title = title.text
         post_time = getDate(link_to_post)
         post_id = post.get('id')
 
