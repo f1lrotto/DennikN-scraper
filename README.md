@@ -19,7 +19,7 @@ When it's done scraping, it returns a JSON with the latest 35 articles, each con
 These are the dependencies used for this application, if you have any of them on your system already installed, you may skip that particular one.
 
 ```
-pip install flask beautifulsoup4 datetime requests
+pip install flask beautifulsoup4 datetime requests waitress
 ```
 
 ### Running the application

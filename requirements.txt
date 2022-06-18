@@ -2,3 +2,4 @@ flask
 beautifulsoup4
 datetime
 requests
+waitress
