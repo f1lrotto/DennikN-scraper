@@ -10,4 +10,4 @@ def request():
 
 if __name__ == "__main__":
     from waitress import serve
-    serve(app, port=int(os.environ.get("PORT")))
+    serve(app, port=int(os.environ.get("PORT", 5000)))
