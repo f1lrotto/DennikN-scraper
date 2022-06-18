@@ -1,5 +1,5 @@
 from flask import Flask
-
+import os
 from scrape import get_data
 
 app = Flask(__name__)
@@ -10,6 +10,5 @@ def request():
 
 if __name__ == "__main__":
     from waitress import serve
-    PORT = 5000
     print(f'Server is running on port {PORT}')
-    serve(app, host="0.0.0.0", port=PORT)
+    serve(app, host="0.0.0.0", port=os.environ.get("PORT"))
