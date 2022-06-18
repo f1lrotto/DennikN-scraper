@@ -3,7 +3,7 @@ import json
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-URL = 'https://dennikn.sk/minuta'
+URL = 'https://dennikn.sk/minuta/dolezite'
 
 def getDate(link_to_post):
     page = requests.get(link_to_post)
