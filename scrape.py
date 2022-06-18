@@ -23,7 +23,7 @@ def get_data():
     post_times = []
     for post in posts:
         post_child = post.find(
-            "div", class_='mnt-FeedArticle js-hook-feed-article')
+            "div", class_='FeedArticle__StyledArticle-sc-1afrvgs-0 mnt-FeedArticle js-hook-feed-article')
         mnt_toolbar = post_child.find("div", class_='mnt-toolbar')
 
         link_to_post = mnt_toolbar.find(href=True)
