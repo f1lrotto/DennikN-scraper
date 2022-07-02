@@ -8,7 +8,9 @@ URL = 'https://dennikn.sk/minuta/dolezite'
 def getDate(link_to_post):
     page = requests.get(link_to_post)
     soup = BeautifulSoup(page.content, "html.parser")
-    time = soup.find('time')
+    time = soup.find('time', class_="e_terms_term e_terms_posted")
+    if time is None:
+        return "2001-09-11T14:14:00+02:00"
     return time['datetime']
 
 
