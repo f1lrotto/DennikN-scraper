@@ -1,16 +1,22 @@
 import requests
 import json
 from bs4 import BeautifulSoup
-from datetime import datetime
+from datetime import datetime, timedelta
+from dateutil import parser
 
 URL = 'https://dennikn.sk/minuta/dolezite'
 
-def getDate(link_to_post):
+def getDate(link_to_post, post_list):
     page = requests.get(link_to_post)
     soup = BeautifulSoup(page.content, "html.parser")
     time = soup.find('time', class_="e_terms_term e_terms_posted")
+
     if time is None:
-        return "2001-09-11T14:14:00+02:00"
+        time_obj = parser.parse(post_list[-1]['postTime'])
+        dateObj = time_obj - timedelta(minutes=1)
+        dateStr = dateObj.strftime('%Y-%m-%dT%H:%M:%S%z')
+        dateStr = dateStr[:-2] + ':' + dateStr[-2:]
+        return dateStr
     return time['datetime']
 
 
@@ -42,7 +48,7 @@ def get_data():
             if title.find('strong') != None:
                 title = title.find('strong')
                 title = title.text
-        post_time = getDate(link_to_post)
+        post_time = getDate(link_to_post, post_list)
         post_id = post.get('id')
 
         post_list.append({
